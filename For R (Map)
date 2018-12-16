@@ -1,0 +1,13 @@
+# 지도 불러오는 코드
+
+install.packages("leaflet")
+library(leaflet)
+mapAF <- leaflet() %>%
+
+  addTiles('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+           attribution='Map tiles by
+           <a href="http://stamen.com">Stamen Dssign</a>,
+           <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<a>
+           &mdash; Map data &copy;
+           <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>') %>%
+  setView(70, 35, zoom=5)
