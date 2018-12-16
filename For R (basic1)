@@ -1,0 +1,173 @@
+install.packages("ggplot2")
+rep(1:2,5)
+rep(1:2)
+charArr <- character()
+charArr
+charArr[1] <- "hello" ; charArr[2] <- "Nice"
+
+intArr <- numeric()
+intArr[1] <- 10; intArr[2] <- 20; intArr[3] <- 0; intArr[4] <- 5;
+
+a <- c(1,2,3,4)
+append(a, c(6,7,8))
+  
+b <- c(4,6,7,8)
+union(a,b)
+intersect(a,b)
+setdiff(a,b)
+
+seq(0,1,length.out = 11)
+seq(stats::rnorm(10))
+
+rep(1:4,2)
+rep(1:4, each=2,len=10)
+
+
+seq(stats::rnorm(10))
+
+?seq()
+
+a <- 1
+
+iris <- iris
+
+cars <- cars
+mtcars <- mtcars
+
+
+english <- c(90,80,60,70)
+Korean <- c(10,10,15,NA)
+
+rm(list = is(a,b))
+rm(a,b)
+rm(charArr)
+rm(intArr)
+math <- c(50,60,100,20)
+df_midterm <- data.frame(english, math)
+View(df_midterm)
+
+class <- c(1,1,2,2)
+df_midterm <- data.frame(english, math, Korean, class)
+
+x <-  list(name='mike', height=c(100,150,200))
+
+data <- list(name='홍길동', age='25')
+unlist_data <- unlist(data)
+
+data <-as.data.frame(data)
+data <-as.data.frame.table(data)
+rm(data)
+
+view(data)
+View(data)
+
+NROW(data)
+NCOL(data)
+
+mean(df_midterm$korean)
+mean(df_midterm$math)
+
+df_midterm2 <- data.frame(a = c(10,20,30),
+                          b = c(1,2,3))
+View(mideterm2)
+install.packages("readxl")
+library(readxl)
+df_exam <- read_excel("C:/Users/405-7/Downloads/excel_exam.xlsx")
+mean(df_exam$math)
+mena(df_exam$science)
+
+
+df_exam1 <- read_excel("C:/Users/405-7/Downloads/excel_exam1.xlsx",
+                       col_names = F, sheet = 3)
+
+
+
+df_csv_exam <- read.csv("C:/Users/405-7/Downloads/csv_exam.csv",stringsAsFactors = TRUE)
+View(df_csv_exam)
+str(df_csv_exam)
+
+
+write.csv(df_midterm2, file="C:/Users/405-7/Desktop/df_midterm.csv")
+
+
+head(df_exam, n=5)
+?head
+tail(df_exam, n=5)
+dim(df_exam)
+?dim
+str(df_exam)
+summary(df_exam)
+
+ef_exam1 <- rename(df_exam1, X__1 = no.1)
+ef_exam1 <- rename(df_exam1, no.1 = X__1)
+
+
+df_raw <- data.frame(var1 = c(1, 2, 3),
+                     var2 = c(2, 3, 2))
+View(df_raw)
+
+install.packages('dplyr')
+library(dplyr)
+
+df_new <- rename(df_raw, v2 = var2, v1 = var1)
+View(df_new)
+rm(df_new)
+
+colnames(df_raw) = c("v1", "v2")
+View(df_raw)
+
+mpg <- mpg
+iris <- iris
+mpg <- mpg
+library(ggplot2)
+mpg <- mpg
+mpg$total <- (mpg$cty + mpg$hwy)/2
+mean(mpg$total)
+View(mpg)
+
+
+num = as.integer(readline(prompt='Enter a number:'))
+factorial = 1
+if(num < 0){
+  print('음수는 팩토리얼로 사용 불가')
+
+}else if(num==0){
+  print('0!은 1')
+}else{
+  for(i in 1:num){
+    factorial = factorial * i
+  }
+  print(paste('팩토리얼', factorial,'입니다'))
+}
+
+
+mpg$test <- ifelse(mpg$total >= 20, "pass", "fail")
+head(mpg)
+head(mpg$test)
+?head
+
+head(mpg$test, 10)
+
+
+mpg$test <- ifelse(mpg$total >= 30, "A",
+                   ifelse(mpg$total >= 20, "b", "fail"))
+                   
+       
+midwest <- midwest
+str(midwest)
+Viwe(midwest)
+View(midwest)
+
+midwest2 <- rename(midwest, asian = popasian)
+
+midwest2 <- rename(midwest2, indian = popamerindian)
+midwest2 <- rename(midwest2, other = popother)
+
+View(midwest2)
+
+midwest2$minority <- (midwest2$asian + midwest2$indian + midwest2$other)
+
+#확인
+
+midwest2$class <- ifelse(midwest2$other >=40, "A",
+                         ifelse(midwest2$other >=25, "B", "C"))
