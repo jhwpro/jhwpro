@@ -1,0 +1,138 @@
+install.packages("leaflet")
+library(leaflet)
+mapAF <- leaflet() %>%
+
+  addTiles('http://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png',
+           attribution='Map tiles by
+           <a href="http://stamen.com">Stamen Dssign</a>,
+           <a href="http://creativecommons.org/licenses/by/3.0">CC BY 3.0<a>
+           &mdash; Map data &copy;
+           <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>') %>%
+  setView(70, 35, zoom=5)
+
+library(dplyr)
+
+# filter() - 행 추
+# select()
+# arrange()
+# mutate()
+# summarise()
+# group_by()
+# left_join()
+# bind_rows()
+# %>% > (ctrl + shift + M)
+exam <- read.csv("C:/Users/405-7/Downloads/csv_exam.csv")
+View(exam)
+  
+exam_class_1 <- exam %>% filter(class == 1)
+
+filter(exam, class == 1 | class == 2)
+
+filter(exam, class != 1)
+exam %>% filter(math <=50 )
+
+exam %>%  filter(class %in% c(1,3,5))
+
+## iris 전처리
+iris <- iris
+
+View(iris)
+iris_species_virginica <- iris %>% filter(Species == "virginica")
+# 오류 : Error in filter_impl(.data, quo)
+# Evaluation error: object 'virginica' not found.
+iris_sepal_5Over <- iris %>% filter(Sepal.Length >= 5)
+str(iris)
+iris_species <- iris %>% select(Species)
+
+##  exam 전처리
+exam %>% select(-english)
+exam %>% filter(class == 1) %>% select(class==1, english >=86)
+
+exam %>% filter(english >=86) %>% select(class == 1)
+
+exam %>% select(english) %>% filter (class ==1, english >= 86)
+exam %>% select(english) %>% filter(english >= 86) %>% filter(class == 1)
+
+exam %>% filter(class == 1 & english >=86) %>% select(english) %>% arrange(desc(english))
+
+exam %>% filter(class == 1 & english >=86) %>% select(english) %>% arrange(desc(english)) %>% head(1)
+
+exam %>% filter(english >=86 & class == 1) %>% select(english) %>% arrange(desc(english)) %>% head(3)
+
+exam %>% filter(class == 1 & english >=86) %>% arrange(desc(english)) %>% select(class, english) %>% head(5)
+
+library(dplyr)
+exam %>% rename(korean = science)
+exam <- exam %>% rename(korean = science)
+View(exam)
+
+
+exam %>% mutate(total = math + english + korean) %>% mutate(mean = total/3) %>% arrange(desc(total)) %>%  
+  mutate(check = ifelse(total >= 230, 'pass', 'fail')) %>% summarise(mean_math =mean(math)) %>% 
+  group_by(class)
+
+
+exam %>% mutate(total = math + english + korean) %>% mutate(mean = total/3) %>% arrange(desc(total)) %>%  
+  mutate(check = ifelse(total >= 230, 'pass', 'fail')) %>% group_by(class) %>% summarise(mean_math =mean(math)) 
+
+exam %>% mutate(total = math + english + korean) %>% mutate(mean = total/3) %>% arrange(desc(total)) %>%  
+  mutate(check = ifelse(total >= 230, 'pass', 'fail')) %>% group_by(class) %>% summarise(std_math =sd(math)) 
+
+exam %>% mutate(total = math + english + korean) %>% mutate(mean = total/3) %>% arrange(desc(total)) %>%  
+  mutate(check = ifelse(total >= 230, 'pass', 'fail')) %>% group_by(class) %>% summarise(var_math =var(math)) 
+
+exam1 <- exam %>% mutate(total = math + english + korean) %>% mutate(mean = total/3) %>% arrange(desc(total)) %>%  
+  mutate(check = ifelse(total >= 230, 'pass', 'fail')) %>% group_by(class) %>% summarise(var_math =var(math)) 
+
+
+
+cars <- cars
+mtcars <- mtcars
+View(mtcars)
+# mpg 데이터 cty 도시 hwy  고속도로 manufacturer 회사별
+mpg <- mpg
+library(ggplot2)
+mpg <- mpg
+View(mpg)
+mpg <- mpg
+
+mpg %>% filter(class == 'suv') %>% mutate(average = (cty+hwy)/2) %>% group_by(manufacturer) %>% arrange(desc(average)) %>% 
+  summarise(average2 = mean(average)) %>% head(5)
+
+mpg %>% group_by(manufacturer) %>% summ
+#정답 : 데이터의 구조를 파악해 전처리(캐릭터를 팩터로 바꾸는 작업)을 먼저 해줘야 한다.
+mpg <- mpg
+str(mpg)
+str(mpg$class)
+mpg$class <- as.factor((mpg$class))
+levels(mpg$class)
+
+
+test1 <- data.frame(id = c(1,2,3,4,5,6,7),
+                    midterm = c(60,80,70,90,85,70,55))
+test2 <- data.frame(id = c(8,9),
+                    midterm = c(45,70))
+
+all_exam_mid <- bind_rows(test1, test2)
+View(all_exam_mid)
+
+total_left <- left_join(test1, test2, by="id")
+total_right <- right_join(test1, test2, by="id")
+total_inner <- inner_join(test1, test2, by="id")
+total_full <- full_join(test1, test2, by="id")
+
+name <- data.frame(class = c(1,2,NA,4,5),
+                   teacher = c("kim", "lee", "park", NA, "jung"))
+
+is.na(name)
+
+exam_new <- left_join(exam, name, by="class")
+str(name)
+table(is.na(name))
+table(is.na(name$class))
+
+filter(name, is.na(name$class))
+filter(name, is.na(name$teacher))
+View(name)
+filter(name, is.na(name$class) | is.na(name$teacher))
+
